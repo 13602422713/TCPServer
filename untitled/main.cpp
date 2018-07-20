@@ -1,10 +1,8 @@
 
-//#include "CYdLidar.h"
 #include <iostream>
 #include <sstream>
 #include <signal.h>
 #include <memory>
-//#include <unistd.h>
 #include <windows.h>
 #include <thread>
 #include <vector>
@@ -12,34 +10,22 @@
 #include <fstream> 
 #include <string> 
 using namespace std;
-//using namespace ydlidar;
+
 
 #include "third/TCPServer.h"
 
-//CYdLidar laser;
-static bool running = false;
+
 
 //const std::string port = "/dev/ydlidar";
 const int baud = 115200;
 const int intensities = 0;
 
-static void
-Stop(int signo)
-{
-
-    printf("Received exit signal\n");
-    running = true;
-
-}
 
 
 TCPServer GetSensorDataServer;
 
-thread t;
-void * Sensorloop(void * m)
+void  Sensorloop()
 {
-  //  pthread_detach(pthread_self());
-	t.detach();
     bool tag1 = false;
     bool tag2 = false;
     bool tag3 = false;
@@ -193,14 +179,18 @@ int main(int argc, char *argv[])
     }
 */
    // pthread_t lmsg;
-    GetSensorDataServer.setup(11999);
+   // GetSensorDataServer.setup(11999);
 
    // if( pthread_create(&lmsg, NULL, Sensorloop, (void *)0) == 0)
-	t = thread(Sensorloop);
-	if (NULL != t.native_handle())
-	{
+	thread SensorLooopThread(Sensorloop);
+	SensorLooopThread.detach();
+	//if (NULL != SensorLooopThread.native_handle())
+	//{
+		cout << "Sensorloop was created succeed!" << endl;
 		GetSensorDataServer.receive();
-	}
+	//}
+	
+	while(1);
 
     return 0;
 }

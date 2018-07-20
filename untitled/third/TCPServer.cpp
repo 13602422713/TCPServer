@@ -4,29 +4,46 @@ string TCPServer::Message;
 char TCPServer::msg_out[ MAXPACKETSIZE ];
 int TCPServer::recv_len;
 
-void *
-TCPServer::Task(void *arg)
+void 
+TCPServer::ReceivedThread()
 {
-    int n;
-    int newsockfd = (long) arg;
-    char msg[MAXPACKETSIZE];
-	serverThread.detach();
-    while (1)
-    {
-        n=recv(newsockfd,msg,MAXPACKETSIZE,0);
-        if(n==0)
-        {
-			closesocket(newsockfd);
-            break;
-        }
-        msg[n]=0;
-        recv_len = n;
-        memcpy(msg_out, msg, recv_len);
+   // int n;
+   // int newsockfd = (long)arg;
+   // char msg[MAXPACKETSIZE];
+   // while (1)
+   // {
+   //     n=recv(newsockfd,msg,MAXPACKETSIZE,0);
+   //     if(n==0)
+   //     {
+			//closesocket(newsockfd);
+   //         break;
+   //     }
+   //     msg[n]=0;
+   //     recv_len = n;
+   //     memcpy(msg_out, msg, recv_len);
 
-        //send(newsockfd,msg,n,0);
-        Message = string(msg);
-    }
-    return 0;
+   //     //send(newsockfd,msg,n,0);
+   //     Message = string(msg);
+   // }
+	char msg[MAXPACKETSIZE] = { 0 };
+	while (1)
+	{
+
+		int n = recv(sClientSockfd, msg, MAXPACKETSIZE, 0);
+		//接收长度为0
+		if (n == 0)
+		{
+			closesocket(sClientSockfd);
+			break;
+		}
+
+		msg[n] = 0;//what the fuck!?
+		recv_len = n;
+		memcpy(msg_out, msg, recv_len);
+
+		//send(sClientSockfd,msg,n,0);
+		Message = string(msg);
+	}
 }
 
 char*
@@ -60,9 +77,16 @@ TCPServer::receive()
     while (1)
     {
 		_Inout_opt_ int FAR  sosize = sizeof(clientAddress);
-        newsockfd = accept(sockfd, (struct sockaddr *) &clientAddress, &sosize);
-        str = inet_ntoa(clientAddress.sin_addr);
-		serverThread = thread(Task);
+        //newsockfd = accept(sockfd, (struct sockaddr *) &clientAddress, &sosize);
+		sClientSockfd = accept(sockfd, (struct sockaddr *) &clientAddress, &sosize);
+        //str = itoa(clientAddress.sin_addr);
+		stringstream ss;
+		ss << (uint32_t)clientAddress.sin_addr.s_addr;
+		str = ss.str();		//获取IP地址
+
+		//创建接收线程
+		serverThread = thread(&TCPServer::ReceivedThread , this);
+		serverThread.detach();
     }
     return str;
 }

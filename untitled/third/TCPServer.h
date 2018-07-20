@@ -9,12 +9,16 @@
 //#include <unistd.h>
 #include <sys/types.h> 
 //#include <sys/socket.h>
-#include <winsock.h>
+/*#include <WINSOCK2.H> */  
+#include <Winsock.h>
 //#include <netinet/in.h>
 #include <string.h>
 //#include <arpa/inet.h>
 //#include <pthread.h>
 #include <thread>
+#include <sstream>
+
+#pragma comment(lib,"ws2_32.lib")
 
 using namespace std;
 
@@ -23,7 +27,7 @@ using namespace std;
 class TCPServer
 {
 public:
-	int sockfd, newsockfd, n, pid;
+	int sockfd, newsockfd, sClientSockfd,n, pid;
 	struct sockaddr_in serverAddress;
 	struct sockaddr_in clientAddress;
 	thread serverThread;
@@ -41,8 +45,8 @@ public:
 	void detach();
 	void clean();
 
-	private:
-	static void * Task(void * argv);
+public:
+	void ReceivedThread();
 };
 
 #endif
