@@ -1,0 +1,8 @@
+﻿  main.cpp
+main.cpp(109): warning C4101: “ch”: 未引用的局部变量
+  正在生成代码
+f:\2018718service_picture\untitled\opencv_viewcamer\opencv_viewcamer\robotdective.cpp(84): warning C4715: “RobotDective::getVedioFrame”: 不是所有的控件路径都返回值
+  All 261 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  opencv_viewcamer.vcxproj -> F:\2018718service_picture\untitled\opencv_viewcamer\Release\opencv_viewcamer.exe
+  opencv_viewcamer.vcxproj -> F:\2018718service_picture\untitled\opencv_viewcamer\Release\opencv_viewcamer.pdb (Full PDB)
