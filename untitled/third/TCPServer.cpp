@@ -30,19 +30,26 @@ TCPServer::ReceivedThread()
 	{
 
 		int n = recv(sClientSockfd, msg, MAXPACKETSIZE, 0);
-		//接收长度为0
-		if (n == 0)
+		if( -1 == n)
 		{
-			closesocket(sClientSockfd);
-			break;
+			//empty
 		}
+		else
+		{
+			//接收长度为0
+			if (n == 0)
+			{
+				closesocket(sClientSockfd);
+				break;
+			}
 
-		msg[n] = 0;//what the fuck!?
-		recv_len = n;
-		memcpy(msg_out, msg, recv_len);
+			//msg[n] = 0;//what the fuck is this !?
+			recv_len = n;
+			memcpy(msg_out, msg, recv_len);
 
-		//send(sClientSockfd,msg,n,0);
-		Message = string(msg);
+			//send(sClientSockfd,msg,n,0);
+			Message = string(msg);
+		}
 	}
 }
 
