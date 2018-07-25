@@ -1,11 +1,8 @@
-﻿生成启动时间为 2018/7/23 20:55:11。
+﻿生成启动时间为 2018/7/25 16:37:59。
      1>项目“D:\AIROB\激光相关\ShowingMapWithTCP\TCPServer\untitled\untitle\untitle\untitle.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\software\Programming\VC2012\insist\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt ..\..\third\TCPServer.cpp
-         TCPServer.cpp
-     1>..\..\third\TCPServer.cpp(71): warning C4244: “=”: 从“SOCKET”转换到“int”，可能丢失数据
-     1>..\..\third\TCPServer.cpp(88): warning C4244: “=”: 从“SOCKET”转换到“int”，可能丢失数据
-     1>..\..\third\TCPServer.cpp(110): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+         D:\software\Programming\VC2012\insist\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt ..\..\main.cpp
+         main.cpp
        Link:
          D:\software\Programming\VC2012\insist\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\AIROB\激光相关\ShowingMapWithTCP\TCPServer\untitled\untitle\x64\Debug\untitle.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\AIROB\激光相关\ShowingMapWithTCP\TCPServer\untitled\untitle\x64\Debug\untitle.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\AIROB\激光相关\ShowingMapWithTCP\TCPServer\untitled\untitle\x64\Debug\untitle.lib" /MACHINE:X64 x64\Debug\main.obj
          x64\Debug\TCPServer.obj
@@ -14,4 +11,4 @@
 
 生成成功。
 
-已用时间 00:00:02.14
+已用时间 00:00:02.06

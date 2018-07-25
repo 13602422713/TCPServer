@@ -27,26 +27,33 @@ using namespace std;
 class TCPServer
 {
 public:
-	int sockfd, newsockfd, sClientSockfd,n, pid;
-	struct sockaddr_in serverAddress;
-	struct sockaddr_in clientAddress;
-	thread serverThread;
-	char msg[ MAXPACKETSIZE ];
-	static string Message;
-	static char msg_out[ MAXPACKETSIZE ];
-	static int recv_len;
-public:
-	void setup(int port);
-	string receive();
-	string getMessage();
+	TCPServer(int port);
+	TCPServer::TCPServer();
+	TCPServer::~TCPServer();
+
 	char* getmsg();
 	int getmsglen();
+
+	void ReceivedThread();
+
+	bool setup(int port);
+	string waitingConnect();
+	void beginRecived();
+	string receive();
+	string getMessage();
 	void Send(string msg);
 	void detach();
 	void clean();
 
 public:
-	void ReceivedThread();
+	static string Message;
+	static char msg_out[ MAXPACKETSIZE ];
+	static int recv_len;
+private:
+	SOCKET c_lSockfd, c_lClientSockfd;
+	struct sockaddr_in c_stServerAddress;
+	struct sockaddr_in c_stClientAddress;
+	thread c_cServerThread;
 };
 
 #endif
