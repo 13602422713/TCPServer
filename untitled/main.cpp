@@ -57,7 +57,7 @@ void handleThread()
 		{
 			std::string outfile;
 			std::stringstream tmpoutstream;
-			tmpoutstream<<"./recive_picture"<<tmptag<<".png";
+			tmpoutstream<<tmptag<<".png";
 			outfile = tmpoutstream.str();
 			std::cout<<"receive file : "<<outfile<<std::endl;
 			tmptag++;
@@ -73,13 +73,14 @@ void handleThread()
 					tmp_rec_len = cPictureServer.getmsglen();
 					memcpy(tmp_recv_buf, cPictureServer.getmsg(), tmp_rec_len);
 					cPictureServer.clean();
-					if(1024 == tmp_rec_len)
+					if(1024 == tmp_rec_len)//接收到1024byte的帧
 					{
 						tmpcircle++;
 						testout.write(tmp_recv_buf, 1024);
 						cPictureServer.Send("ok3");
+						cout<<"tmpcircle:"<<tmpcircle<<endl;
 					}
-					else if(tmp_rec_len < 1024 && tmp_rec_len > 0)
+					else if(tmp_rec_len < 1024 && tmp_rec_len > 0)//接收到0-1024byte的帧
 					{
 						memcpy(tmp_recv_buf, cPictureServer.getmsg(), tmp_rec_len);
 						int sub_tmp_rec_len;
@@ -94,12 +95,17 @@ void handleThread()
 								tmpcircle++;
 								testout.write(tmp_recv_buf, 1024);
 								cPictureServer.Send("ok3");
+								cout<<"tmpcircle:"<<tmpcircle<<endl;
 								break;
 							}
 						}
 					}
+					else if(tmp_rec_len>1024)
+					{
+						
+					}
 				}
-				else if(tmpcircle == allcircle)
+				else if(tmpcircle == allcircle)//last frame
 				{
 					int tailen = tmplength - allcircle*1024;
 					tmp_rec_len = cPictureServer.getmsglen();

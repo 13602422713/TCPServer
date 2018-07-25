@@ -130,11 +130,19 @@ TCPServer::waitingConnect()
 {
 	string str;
 	//µÈ´ýÁ¬½Ó
-    while (INVALID_SOCKET == c_lClientSockfd)
-    {
+	while(1)
+	{
 		_Inout_opt_ int FAR  sosize = sizeof(c_stClientAddress);
 		c_lClientSockfd = accept(c_lSockfd, (struct sockaddr *) &c_stClientAddress, &sosize);
-		Sleep(10);
+		if (INVALID_SOCKET == c_lClientSockfd)
+		{
+			Sleep(10);
+			continue;
+		}
+		else
+		{
+			break;
+		}
 	}
 	cout<<"Connection is comming"<<endl;
 
